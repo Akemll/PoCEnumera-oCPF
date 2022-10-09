@@ -1,4 +1,4 @@
- import requests, time, random
+import requests, time, random
 
 arquivo = open("usados.txt", "a")
 arquivo2 = open("usados.txt", "r")
