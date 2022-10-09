@@ -3,8 +3,8 @@ import requests, time, random
 arquivo = open("usados.txt", "a")
 arquivo2 = open("usados.txt", "r")
 arquivo3 = open("cpfpegos.txt", "a")
-dados = ""
 contar = 0
+dedes = ""
 
 def pegarcpf(dados):
   try:
@@ -42,28 +42,32 @@ def pegarcpf(dados):
 
 
 while True:
-  time.sleep(3)
   dede = arquivo2.read()
-  while len(dados) != 11:
-    if len(dados) == 8:
-      dados += str(random.choice((1, 4, 8)))
-    dados += str(random.randint(0, 9))
-  if dados not in dede:
-    arquivo.write(f" {dados}")
-    print(dados)
-    while True:
-      retorno = pegarcpf(dados)
-      if retorno == 400 or retorno == 200:
-        break
-      else:
-        print(retorno)
-        print("Deu erro")
-        time.sleep(2)
-    dados = ""
-    contar += 1
-    if contar == 10:
-      contar = 0
-      try:
-        requests.post("https://discord.com/api/webhooks/1028761650104369203/d899GWM1oFwNLDywTiRs7wzWAd_JQuKs81a976wf2zfMf4tnSbt7rNlcLdPC-EjAG-HF",data={"content": f"Tou on"})
-      except Exception:
-        contar = 10
+  listacpf = []
+  while len(dedes) != 8:
+    dedes += str(random.randint(0, 9))
+  doisultimos = f"{random.randint(0,9)}{random.randint(0,9)}"
+  for e in range(0, 10):
+    listacpf.append(f"{dedes}{e}{doisultimos}")
+  dedes = ""
+  for dados in listacpf:
+    if dados not in dede:
+      time.sleep(3)
+      arquivo.write(f" {dados}")
+      print(dados)
+      while True:
+        retorno = pegarcpf(dados)
+        if retorno == 400 or retorno == 200:
+          break
+        else:
+          print(retorno)
+          print("Deu erro")
+          time.sleep(2)
+      contar += 1
+      if contar == 10:
+        contar = 0
+        try:
+          requests.post("https://discord.com/api/webhooks/1028761650104369203/d899GWM1oFwNLDywTiRs7wzWAd_JQuKs81a976wf2zfMf4tnSbt7rNlcLdPC-EjAG-HF",data={"content": f"Tou on"})
+        except Exception:
+          contar = 10
+  
