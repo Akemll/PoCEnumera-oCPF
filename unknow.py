@@ -52,7 +52,7 @@ while True:
   dedes = ""
   for dados in listacpf:
     if dados not in dede:
-      time.sleep(1)
+      time.sleep(2)
       arquivo.write(f" {dados}")
       print(dados)
       while True:
